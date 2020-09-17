@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        //excessoes que iginoram a verificação de seguranca
+        'http_request'
     ];
 }

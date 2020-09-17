@@ -1,4 +1,4 @@
-<h1>App Pagina</h1>
+<h1>Usuario Pagina</h1>
 <hr>
 <div>
     <a href="{{ route('app.index') }}">App</a>

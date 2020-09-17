@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,6 +55,68 @@ Route::get('/produtos', function(){
     echo "</ol><hr>";
 })->name('produtos');//->name coloca o nome na rota
 
+/*
+//modelo 1
 Route::get('/app', function () {
     return view('app');
+})->name('app');
+
+Route::get('/perfil', function () {
+    return view('perfil');
+})->name('perfil');
+
+Route::get('/usuario', function () {
+    return view('usuario');
+})->name('usuario');
+*/
+//modelo 2
+
+Route::prefix('/app')->group(function(){ //prefix todas as rotas nao iniciar com ele
+    Route::get('/', function () {
+        return view('app');
+    })->name('app.index');        //app. padrao de nome nao obrigatorio
+    
+    Route::get('/perfil', function () {
+        return view('perfil');
+    })->name('app.perfil');
+    
+    Route::get('/usuario', function () {
+        return view('usuario');
+    })->name('app.usuario');
+});
+
+//redicionar um link para outro
+
+Route::get('produtos1', function () {
+    return redirect('produtos');    //usando a rota direta
+});
+
+Route::get('produtos2', function () {
+    return redirect()->route('produtos'); //usando o nome da rota
+});
+
+Route::redirect('produtos3', 'produtos', 301);// link digitado, link da rota, codigo de redirecionamento
+
+Route::post('/http_request', function (Request $request) { //salvar objeto no servidor
+    return 'Hello POST';
+});
+
+Route::delete('/http_request', function (Request $request) { //para apagar algo no servidor
+    return 'Hello DELETE';
+});
+
+Route::put('/http_request', function (Request $request) { //alterar todo objeto no servidor
+    return 'Hello PUT';
+});
+
+Route::patch('/http_request', function (Request $request) { //alterar parte do objeto no servidor
+    return 'Hello PATCH';
+});
+
+Route::options('/http_request', function (Request $request) {
+    return 'Hello OPTIONS';
+});
+
+Route::get('/http_request', function (Request $request) {
+    return 'Hello GET';
 });
